@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import { UserInsertType } from '../../types/UserTypes/UserTypes';
 
 
-export class ManipulateUser{
+export default class ManipulateUser{
   
     constructor(){
 
@@ -23,15 +23,15 @@ export class ManipulateUser{
             senha: EncryptedPassword, 
             sn_admin: user.sn_admin})
         .then((response) =>{
-            console.log(response)
+            res.json({ message: 'User created successfully' });
         }).catch((error) =>{
-            console.log(error)
+          res.status(500).json({ message: 'Error creating user !' });
         })
 
-        res.json({ message: 'User created successfully' });
+        
       } catch (error) {
         console.log(error)
-        res.status(500).json({ message: "Error creating user" });
+        res.status(500).json({ message: "A server error ocurred !" });
       }
     }
 
