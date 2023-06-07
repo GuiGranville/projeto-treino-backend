@@ -1,1 +1,1 @@
-# Api Padrão 
+# Api da aplicação de treinos
