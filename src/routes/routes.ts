@@ -31,6 +31,9 @@ routes.post('/createUser', (req: Request, res: Response) =>
 routes.post('/createExercise', (req: Request, res: Response) => {
     manipulateExercise.createExercise(req, res)
 })
+routes.put('/editExercise', (req: Request, res: Response) =>{
+    manipulateExercise.editExercise(req, res)
+})
 
 
 export default routes;
