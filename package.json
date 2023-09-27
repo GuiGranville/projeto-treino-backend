@@ -1,14 +1,14 @@
 {
-  "name": "api-padrao",
+  "name": "api-app-treinos",
   "version": "1.0.0",
-  "description": "Projeto padrão",
+  "description": "API para a aplicação de treinos",
   "main": "server.ts",
   "scripts": {
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
     "build": "tsc",
     "test": "jest"
   },
-  "author": "Dataintegra",
+  "author": "Guilherme Granville",
   "license": "MIT",
   "dependencies": {
     "@types/node": "^18.15.11",
