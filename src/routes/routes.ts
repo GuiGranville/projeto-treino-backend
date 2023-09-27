@@ -29,11 +29,16 @@ routes.post('/createUser', (req: Request, res: Response) =>
 
 //routes for exercise
 routes.post('/createExercise', (req: Request, res: Response) => {
-    manipulateExercise.createExercise(req, res)
+    manipulateExercise.createExercise(req, res);
 })
 routes.put('/editExercise', (req: Request, res: Response) =>{
-    manipulateExercise.editExercise(req, res)
+    manipulateExercise.editExercise(req, res);
 })
-
+routes.get("/getAllExercises",(req: Request, res: Response) =>{
+    manipulateExercise.getAllExercises(req, res);
+})
+routes.get("/getOneExercise", (req: Request, res: Response) => {
+    manipulateExercise.getOneExercise(req, res);
+})
 
 export default routes;

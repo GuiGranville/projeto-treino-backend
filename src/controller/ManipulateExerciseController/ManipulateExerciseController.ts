@@ -1,9 +1,43 @@
 import { Request, Response } from 'express';
-import { ExerciseInserType } from '../../types/ExerciseTypes/ExerciseTypes';
+import { ExerciseInsertType } from '../../types/ExerciseTypes/ExerciseTypes';
 import knex from '../../database/db';
 
 export default class ManipulateExercise{
-    constructor(){
+
+    async getAllExercises(req: Request, res: Response){
+        try{
+            await knex('tbl_exercicio').select('*')
+            .then((response) =>{
+                return res.json(response)
+            }).catch((response) =>{
+                return res.status(400).json({message: "No exercises found !"})
+            })
+
+
+        }catch(error){
+            return res.status(500).json({message: "A server error ocurred !" })
+        }
+    }
+
+    async getOneExercise(req: Request, res: Response){
+
+        try{
+
+            const cd_exercise = req.query
+
+            await knex('tbl_exercicio')
+            .where({cd_exercicio: cd_exercise.cd_exercise})
+            .select("*")
+            .then((response) => {
+                return res.status(200).json(response)
+            }).catch((error) =>{
+                console.log(error)
+                return res.status(400).json({message: "No exercise found !"})
+            })
+
+        }catch(error){
+            return res.status(500).json({message: "A server error ocurred !"})
+        }
 
     }
     
@@ -11,7 +45,7 @@ export default class ManipulateExercise{
         try{
 
         
-            const exercise: ExerciseInserType = req.body
+            const exercise: ExerciseInsertType = req.body
 
             await knex('tbl_exercicio').insert({
                 nm_exercicio: exercise.nm_exercicio,
@@ -31,13 +65,30 @@ export default class ManipulateExercise{
     async editExercise(req:Request, res:Response){
         try{
 
-            const cdExercise = req.params
-            const fildsEdit: ExerciseInserType = req.body
+            const cd_exercise = req.query;
+            const fieldsEdit: ExerciseInsertType = req.body;
 
-            if (Object.keys(fildsEdit).length === 0) {
-                return res.status(400).json({ error: 'Nenhum campo para editar fornecido' });
-              }
+            let fieldsNotNull = new Object;
 
+            for(let item in fieldsEdit){
+                if(fieldsEdit[item] != null){
+                    fieldsNotNull[item] = fieldsEdit[item]
+                }
+                
+            }
+
+            console.log(cd_exercise)
+
+            await knex('tbl_exercicio')
+            .where({cd_exercicio: cd_exercise.cd_exercise})
+            .update(fieldsNotNull)
+            .then((response) =>{
+                console.log(response)
+            }).catch((err) =>{
+                console.log(err)
+            })
+
+            return res.status(200).json({message: "Exercise edit successfuly !"})
         }catch(error){
             return res.status(500).json({ error: 'A server error ocurred !' });
         }
