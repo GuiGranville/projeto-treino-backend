@@ -8,10 +8,14 @@ import { AuthController } from '../controller/AuthController/AuthController';
 import { ValidateToken } from '../middlewares/ValidadeToken/ValidateToken';
 import ManipulateExercise from '../controller/ManipulateExerciseController/ManipulateExerciseController';
 import  ManipulateUser  from '../controller/ManipulateUserController/ManipulateUserController';
+import { ManipulateTraineController } from '../controller/ManipulateTraineController/ManipulateTraineController';
+import { ManipulateTrainament } from '../controller/ManipulateTrainamentController/ManipulateTrainamentController';
 
 const routes = Router();
-const manipulateUser = new ManipulateUser()
-const manipulateExercise = new ManipulateExercise()
+const manipulateUser = new ManipulateUser();
+const manipulateExercise = new ManipulateExercise();
+const manipulateTraine = new ManipulateTraineController();
+const manipulateTrainament = new ManipulateTrainament();
 
 routes.use(cors({ origin: '*' })); 
 
@@ -28,17 +32,25 @@ routes.post('/createUser', (req: Request, res: Response) =>
 
 
 //routes for exercise
-routes.post('/createExercise', (req: Request, res: Response) => {
+routes.post('/exercise/createExercise', (req: Request, res: Response) => {
     manipulateExercise.createExercise(req, res);
 })
-routes.put('/editExercise', (req: Request, res: Response) =>{
+routes.put('/exercise/editExercise', (req: Request, res: Response) =>{
     manipulateExercise.editExercise(req, res);
 })
-routes.get("/getAllExercises",(req: Request, res: Response) =>{
+routes.get("/exercise/getAllExercises",(req: Request, res: Response) =>{
     manipulateExercise.getAllExercises(req, res);
 })
-routes.get("/getOneExercise", (req: Request, res: Response) => {
+routes.get("/exercise/getOneExercise", (req: Request, res: Response) => {
     manipulateExercise.getOneExercise(req, res);
 })
 
+
+routes.post("/traine/createTraine", (req: Request, res: Response) => {
+    manipulateTraine.createTraine(req, res);
+})
+
+routes.post("/traine/vinculateExerciceToTraine", (req: Request, res: Response) => {
+    manipulateTrainament.VinculateExerciseToTraine(req, res);
+})
 export default routes;

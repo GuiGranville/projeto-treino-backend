@@ -3,11 +3,14 @@ import * as bcrypt from 'bcrypt'
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-
+interface LoginType{
+    nm_usuario: string;
+    senha: string;
+}
 
 export async function AuthController(req: Request, res: Response){
     try{
-        const user:any = req.body;
+        const user:LoginType = req.body;
 
         const response = await knex.select('cd_usuario','nm_usuario', 'senha').from('tbl_usuario').where({nm_usuario: user.nm_usuario})
         
@@ -28,4 +31,4 @@ export async function AuthController(req: Request, res: Response){
     }catch(error){
         res.status(500).json({message: 'A server error ocurred'})
     }
-    }
+}

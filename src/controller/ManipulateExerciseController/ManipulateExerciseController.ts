@@ -77,7 +77,6 @@ export default class ManipulateExercise{
                 
             }
 
-            console.log(cd_exercise)
 
             await knex('tbl_exercicio')
             .where({cd_exercicio: cd_exercise.cd_exercise})
